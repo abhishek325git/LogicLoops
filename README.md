@@ -1,32 +1,32 @@
-# Preventive Care & Wellness Portal (Hackathon MVP)
+# Preventive Care & Wellness Portal 
 
-Healthcare teams need a lightweight portal that keeps patients on track with preventive care goals while giving providers compliance visibility. This README outlines the proposed Minimum Viable Product (MVP) for the first round of judging. It focuses on solution flow, MERN stack choices, UI/UX, data models, and API contracts—no code is required yet.
+
 
 ---
 
-## 1. Business Context & Objectives
+## 1. Context & Objectives
 - **Problem**: Patients miss preventive checkups and healthy habit goals because they lack a unified, privacy-aware experience to track progress and receive reminders; providers lack real-time compliance insight.
 - **Goal**: Deliver a secure, personalized portal that motivates patients, surfaces preventive care schedules, and equips providers with compliance dashboards.
-- **MVP Focus (5-hour scope)**: Demonstrate key flows—authentication, goal tracking, compliance logging, reminders, and privacy controls.
+- **our flow**: : Demonstrate key flows—authentication, goal tracking, compliance logging, reminders, and privacy controls.
 
 ---
 
-## 2. Target Users & Journeys
+## 2. User Types & Journeys
 - **Patient**: Registers with consent, views assigned wellness goals, logs progress (steps, water intake, checkups), receives reminders, and shares data with providers.
-- **Provider**: Authenticates with elevated permissions, reviews patient compliance summaries, schedules preventive checkups, and updates plan notes.
-- **Admin/Public**: Reads static public health information and manages content (future scope).
+- **Provider**: Authenticates, reviews patient compliance summaries, schedules preventive checkups, and updates plan notes (variable).
+- **Admin/Public**: Reads static public health information and manages content (future scope).(variable)
 
-### High-Level Flow
+### UI Flow
 1. Patient signs up, consents to data usage, and completes profile.
 2. System assigns preventive goals (auto or provider-defined) and exposes them in patient dashboard.
 3. Patient logs progress; system records time-series metrics and compliance.
 4. Reminders (upcoming tests, vaccines) trigger notifications and surface on dashboard.
 5. Provider views compliance dashboard, filters by patient, and records checkup outcomes.
-6. Security layer enforces role-based access, audit logging, and HIPAA-aligned controls.
+6. Security layer enforces role-based access, audit logging.
 
 ---
 
-## 3. MVP Feature Scope
+## 3. Our Feature Scope
 | Area | Patient-Facing | Provider/Platform |
 | --- | --- | --- |
 | Authentication | JWT-based login, consent checkbox, password reset flow | Role-based access controls (patient vs provider) |
@@ -36,14 +36,14 @@ Healthcare teams need a lightweight portal that keeps patients on track with pre
 | Reminders | Calendar view, push/email (mock), highlight upcoming preventive actions | Configure reminder templates |
 | Privacy & Security | Consent management, data download/export placeholder, audit trail | Policy & HIPAA messaging |
 
-Out-of-scope for MVP: telehealth visits, insurance billing, detailed analytics dashboards.
+
 
 ---
 
 ## 4. MERN Tech Stack
-| Layer | Tooling | Rationale |
+| Layer | Tooling | Why |
 | --- | --- | --- |
-| Frontend | React (Next.js or CRA), TypeScript, CSS Modules/Sass | Rapid UI iterations, SEO-friendly routing, modular styling |
+| Frontend | React , TypeScript, CSS Modules/Sass | Rapid UI iterations, SEO-friendly routing, modular styling |
 | Backend | Node.js + Express | Lightweight REST API, rich middleware ecosystem |
 | Database | MongoDB Atlas (NoSQL) | Flexible schema for patient metrics & logs |
 | Authentication | JWT (access + refresh), bcrypt for hashing | Secure stateless sessions |
@@ -66,15 +66,15 @@ Out-of-scope for MVP: telehealth visits, insurance billing, detailed analytics d
 - **Public Page**:
   - `/wellness`: Static educational content & preventive guidelines.
 
-UX Notes: responsive design, accessibility (WCAG AA), emphasis on personalization and trust messaging (HIPAA badges, data usage copy).
+Our Notes: responsive design, emphasis on personalization.
 
 ---
 
 ## 6. Data Model Draft (MongoDB Collections)
 | Collection | Key Fields |
 | --- | --- |
-| `users` | `_id`, `email`, `passwordHash`, `role`, `consentStatus`, `lastLogin`, `multiFactorEnabled` |
-| `profiles` | `userId`, `demographics`, `vitals`, `medications`, `allergies`, `emergencyContacts` |
+| `users` | `_id`, `email`, `passwordHash`, `role`, `consentStatus`|
+| `profiles` | `userId`, `address`, `vitals(height , weight , etc..)`, `medications`, `allergies`, `emergencyContacts` |
 | `wellnessGoals` | `userId`, `goalType`, `targetValue`, `frequency`, `assignedBy`, `startDate`, `endDate`, `status` |
 | `goalLogs` | `goalId`, `timestamp`, `value`, `notes`, `source` (manual/wearable) |
 | `preventiveChecklist` | `userId`, `itemType` (vaccine/test), `dueDate`, `status`, `providerNotes` |
@@ -111,21 +111,6 @@ All endpoints enforce JWT auth, role-based middleware, rate limiting, and valida
 
 ---
 
-## 9. DevOps & Deployment Plan
-- **Environments**: `dev` (feature branches) → `staging` (demo) → `prod` (judging).
-- **CI/CD**: GitHub Actions pipeline—lint, unit tests, API contract tests, build artifacts, deploy via environments.
-- **Hosting**: React frontend on Vercel/Netlify; Express API on Render/Heroku with auto-deploy hooks; MongoDB Atlas cluster.
-- **Observability**: Health check endpoint, uptime monitor (e.g., UptimeRobot), structured logs shipped to a lightweight log service.
 
----
-
-## 10. Next Steps Toward Full Build
-1. Finalize UI wireframes and design system (colors, typography, iconography).
-2. Create OpenAPI 3.0 spec & sample Postman collection for endpoints above.
-3. Scaffold MERN repos with shared ESLint/Prettier configs.
-4. Implement authentication + role guards, then build dashboard flows iteratively.
-5. Seed database with sample patients/providers for judging demo.
-
-This README captures the concept, architecture, and execution plan for the Preventive Care & Wellness Portal MVP. It is ready to accompany the hackathon submission for initial evaluation.
 
 
