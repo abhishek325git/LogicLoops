@@ -74,12 +74,12 @@ Our Notes: responsive design, emphasis on personalization.
 | Collection | Key Fields |
 | --- | --- |
 | `users` | `_id`, `email`, `passwordHash`, `role`, `consentStatus`|
-| `profiles` | `userId`, `address`, `vitals(height , weight , etc..)`, `medications`, `allergies`, `emergencyContacts` |
+| `profiles` | `userId`, `address`, `vitals(height , weight , etc..)`, `medications`, `allergies`, `emergencyContacts` , `goalId`, `preventiveChecklistId`, `reminderId`|
 | `wellnessGoals` | `userId`, `goalType`, `targetValue`, `frequency`, `assignedBy`, `startDate`, `endDate`, `status` |
 | `goalLogs` | `goalId`, `timestamp`, `value`, `notes`, `source` (manual/wearable) |
-| `preventiveChecklist` | `userId`, `itemType` (vaccine/test), `dueDate`, `status`, `providerNotes` |
-| `reminders` | `userId`, `message`, `triggerDate`, `channel`, `acknowledged` |
-| `auditLogs` | `userId`, `action`, `resource`, `timestamp`, `ipAddress` |
+| `preventiveChecklist` | `Id`, `itemType` (vaccine/test), `dueDate`, `status`, `providerNotes` |
+| `reminders` | `Id`, `message`, `triggerDate`, `channel`, `acknowledged` |
+| `auditLogs` | `Id`, `action`, `resource`, `timestamp`, `ipAddress` |
 
 Indexes: `users.email` (unique), compound indexes on `goalLogs(goalId, timestamp)` for trend queries, TTL for audit logs if required.
 
