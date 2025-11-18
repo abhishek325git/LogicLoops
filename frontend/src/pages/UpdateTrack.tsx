@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { wellnessAPI } from '../services/api';
 
 const UpdateTrack: React.FC = () => {
   const [log, setLog] = useState({ steps: '', sleepHours: '', waterIntake: '' });
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +23,16 @@ const UpdateTrack: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Update Daily Track</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-2xl font-bold">Update Daily Track</h2>
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="text-blue-600 underline"
+        >
+          ← Back
+        </button>
+      </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="number"

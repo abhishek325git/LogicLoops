@@ -10,8 +10,9 @@ const Register: React.FC = () => {
       await authAPI.register(form);
       alert('Registration successful! Please login.');
       setForm({ name: '', email: '', password: '', role: 'patient' });
-    } catch (err) {
-      alert('Registration failed');
+    } catch (err: any) {
+      const message = err?.response?.data?.error || 'Registration failed';
+      alert(message);
     }
   };
 

@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import { Document } from 'mongoose';
 
 export interface IUser extends Document {
@@ -5,10 +6,28 @@ export interface IUser extends Document {
   email: string;
   password: string;
   role: 'patient' | 'doctor';
+  specialty?: string;
   age?: number;
   contact?: string;
   profilePic?: string;
   comparePassword(candidatePassword: string): Promise<boolean>;
+}
+
+export interface IDoctorProfile extends Document {
+  userId: string;
+  specialty?: string;
+  contact?: string;
+  patients: string[];
+}
+
+export interface IPatientProfile extends Document {
+  userId: string;
+  age?: number;
+  contact?: string;
+  profilePic?: string;
+  conditions?: string[];
+  medications?: string[];
+  allergies?: string[];
 }
 
 export interface IWellnessLog extends Document {

@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import Booking from '../models/Booking';
 import User from '../models/User';
+import DoctorProfile from '../models/DoctorProfile';
 import authMiddleware from '../middleware/authMiddleware';
 import { AuthRequest } from '../types';
 
@@ -27,13 +28,24 @@ router.put('/:id/confirm', authMiddleware, async (req: AuthRequest, res: Respons
     res.status(403).json({ message: 'Unauthorized' });
     return;
   }
-  const booking = await Booking.findByIdAndUpdate(req.params.id, { status: 'confirmed' });
+  const booking = await Booking.findByIdAndUpdate(req.params.id, { status: 'confirmed' }, { new: true });
+  if (booking) {
+    await DoctorProfile.findOneAndUpdate(
+      { userId: booking.doctorId },
+      { $addToSet: { patients: booking.patientId } },
+      { upsert: true },
+    );
+  }
   res.json(booking);
 });
 
 // Get doctors by category
 router.get('/doctors/:category', async (req: Request, res: Response): Promise<void> => {
-  const doctors = await User.find({ role: 'doctor' });
+  const category = req.params.category;
+  const doctors = await User.find({
+    role: 'doctor',
+    ...(category ? { specialty: category } : {}),
+  }).select('name email specialty contact');
   res.json(doctors);
 });
 

@@ -25,7 +25,17 @@ const App: React.FC = () => {
         <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route
+              path="/"
+              element={
+                <LandingPage
+                  onLoginSuccess={(loggedInUser) => {
+                    setIsAuthenticated(true);
+                    setUser(loggedInUser);
+                  }}
+                />
+              }
+            />
             <Route
               path="/dashboard"
               element={

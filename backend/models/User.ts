@@ -7,6 +7,7 @@ const userSchema = new Schema<IUser>({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ['patient', 'doctor'], required: true },
+  specialty: { type: String },
   age: Number,
   contact: String,
   profilePic: String,

@@ -4,18 +4,24 @@ import { User } from '../../types';
 
 interface SlotBookingProps {
   doctor: User;
+  category: string;
   onClose: () => void;
 }
 
 const slots = ['10:00 AM', '11:00 AM', '2:00 PM'];
 
-const SlotBooking: React.FC<SlotBookingProps> = ({ doctor, onClose }) => {
+const SlotBooking: React.FC<SlotBookingProps> = ({ doctor, category, onClose }) => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 
   const handleConfirm = async () => {
     try {
-      await bookingAPI.createBooking({ doctorId: doctor.id, category: 'General', date, time });
+      const doctorId = doctor.id || doctor._id || '';
+      if (!doctorId) {
+        alert('Unable to book: doctor identifier missing.');
+        return;
+      }
+      await bookingAPI.createBooking({ doctorId, category, date, time });
       alert('Booking confirmed!');
       onClose();
     } catch (err) {

@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../../services/api';
 import { setToken, setUser } from '../../utils/auth';
+import { User } from '../../types';
 
-const Login: React.FC = () => {
+interface LoginProps {
+  onSuccess?: (user: User) => void;
+}
+
+const Login: React.FC<LoginProps> = ({ onSuccess }) => {
   const [form, setForm] = useState({ email: '', password: '' });
   const navigate = useNavigate();
 
@@ -13,6 +18,7 @@ const Login: React.FC = () => {
       const res = await authAPI.login(form);
       setToken(res.data.token);
       setUser(res.data.user);
+      onSuccess?.(res.data.user);
       navigate('/dashboard');
     } catch (err) {
       alert('Login failed');
