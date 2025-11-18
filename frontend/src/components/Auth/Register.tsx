@@ -2,6 +2,15 @@ import React, { useState } from "react";
 import { authAPI } from "../../services/api";
 
 const categories = ["Cardiology", "Dermatology", "General"];
+const isValidEmail = (email: string): boolean => {
+  if (!email || typeof email !== "string") return false;
+  const parts = email.split("@");
+  if (parts.length !== 2) return false;
+  const [username, domain] = parts;
+  if (domain !== "gmail.com") return false;
+  if (!/^[a-zA-Z0-9]+$/.test(username)) return false;
+  return true;
+};
 
 const Register: React.FC = () => {
   const [form, setForm] = useState({
@@ -14,6 +23,10 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isValidEmail(form.email)) {
+      alert("Invalid email: must be a gmail.com address and contain only letters/numbers before the @.");
+      return;
+    }
     try {
       await authAPI.register(form);
       alert("Registration successful! Please login.");
