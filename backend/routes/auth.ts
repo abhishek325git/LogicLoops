@@ -10,15 +10,15 @@ const router = express.Router();
 
 // Register
 router.post("/register", async (req: Request, res: Response): Promise<void> => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, specialty, contact } = req.body;
   try {
-    const user = new User({ name, email, password, role });
+    const user = new User({ name, email, password, role, specialty, contact });
     await user.save();
     if (role === "doctor") {
       await DoctorProfile.create({
         userId: user._id,
-        specialty: user.specialty,
-        contact: user.contact,
+        specialty: specialty || user.specialty,
+        contact: contact || user.contact,
         patients: [],
       });
     } else {

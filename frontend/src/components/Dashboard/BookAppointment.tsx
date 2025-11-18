@@ -5,8 +5,11 @@ const BookAppointment: React.FC = () => {
   const [showBooking, setShowBooking] = useState(false);
 
   return (
-    <div className="mb-4">
-      <button onClick={() => setShowBooking(true)} className="bg-blue-500 text-white px-4 py-2 rounded">
+    <div className="space-y-2">
+      <p className="text-sm text-slate-600">
+        Need a preventive check? Pick a specialty and grab a slot.
+      </p>
+      <button onClick={() => setShowBooking(true)} className="btn-primary w-full justify-center">
         Book Appointment
       </button>
       {showBooking && <CategorySelect onClose={() => setShowBooking(false)} />}

@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #0f172a;
+  background-color: #f4f7fb;
+}
+
+body {
+  @apply bg-slate-50 text-slate-800 min-h-screen;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-indigo-600 text-white font-semibold shadow-md hover:bg-indigo-700 transition;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-indigo-200 text-indigo-700 font-semibold hover:bg-indigo-50 transition;
+}
+
+.card {
+  @apply bg-white border border-slate-100 rounded-2xl shadow-sm;
+}
+
+.card-gradient {
+  background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(59,130,246,0.15));
+}

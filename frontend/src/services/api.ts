@@ -21,6 +21,7 @@ export const authAPI = {
     email: string;
     password: string;
     role: string;
+    specialty?: string;
   }) => api.post("/auth/register", data),
   login: (data: { email: string; password: string }) =>
     api.post("/auth/login", data),
