@@ -48,12 +48,6 @@ const emailValidator = (req: Request, res: Response, next: NextFunction): void =
   }
   if (domain !== 'gmail.com' || !isAlphaNumeric) {
     res.status(400).json({
-      message: 'Invalid email: must be a gmail.com address and contain only letters/numbers before the @.'
-    });
-    return;
-  }
-  if (domain !== 'gmail.com' || !isAlphaNumeric) {
-    res.status(400).json({
       message: 'Try again'
     });
     return;
