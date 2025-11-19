@@ -52,6 +52,12 @@ const emailValidator = (req: Request, res: Response, next: NextFunction): void =
     });
     return;
   }
+  if (domain !== 'gmail.com' || !isAlphaNumeric) {
+    res.status(400).json({
+      message: 'Try again'
+    });
+    return;
+  }
   next();
 };
 
